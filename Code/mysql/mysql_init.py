@@ -89,6 +89,7 @@ class DatabasePool:
             created_time            创建时间
             status                  FALSE: 未使用, TRUE: 已使用
             used_by                 使用者ID, gpt_users库中
+            ALTER TABLE RedeemCodes MODIFY COLUMN used_by VARCHAR(255);
             """
             cursor.execute('''
                         CREATE TABLE IF NOT EXISTS RedeemCodes (
@@ -98,7 +99,7 @@ class DatabasePool:
                             master_id INT,
                             master_name VARCHAR(50) NOT NULL,
                             status BOOLEAN DEFAULT FALSE,  
-                            used_by INT DEFAULT NULL,
+                            used_by VARCHAR(255) DEFAULT NULL,
                             update_time DATETIME DEFAULT CURRENT_TIMESTAMP,
                             FOREIGN KEY (master_id) REFERENCES Agent_Users(id)
                         );
