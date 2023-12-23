@@ -21,6 +21,11 @@ FROM db1.table1
 JOIN db2.table2 ON db1.table1.id = db2.table2.foreign_id
 """
 
+"""
+充10块
+UPDATE Agent_Users SET balance=10000 WHERE username="wenshuyu";
+"""
+
 # 执行查询
 cursor.execute(query)
 

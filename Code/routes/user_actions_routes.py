@@ -96,7 +96,7 @@ def init_blueprint(db_pool: DatabasePool):
         return jsonify({"code": token_validate, "message": info_dict[token_validate]})
 
     @bp.route('/api/agent/email_code', methods=['POST'])
-    def proxy_send_email():  #发送邮箱验证码
+    def proxy_send_email():  # 发送邮箱验证码
         data = request.get_json()
         try:
             username = data['username']
@@ -126,7 +126,7 @@ def init_blueprint(db_pool: DatabasePool):
         else:
             return jsonify({"code": -2, "message": f'{data["msg"]}'})
 
-    @bp.route('/api/agent/register', methods=['POST'])  #TODO 要先有一个根用户
+    @bp.route('/api/agent/register', methods=['POST'])
     def register():
         data = request.get_json()
         try:
@@ -135,44 +135,44 @@ def init_blueprint(db_pool: DatabasePool):
             phone = data['phone']
             email = data['email']
             client_email_code = data['email_code']
-            boss_invite_code = data["boss_invite_code"]  #上级的邀请码
+            boss_invite_code = data["boss_invite_code"]  # 上级的邀请码
         except KeyError:
             code = -3
             return jsonify({"code": code, "message": ErrorCode.public_error_code[code]})
 
-        ret = judge_user_exists(username)  #用户名已存在
+        ret = judge_user_exists(username)  # 用户名已存在
         if ret is True:
             code = -8
             return jsonify({"code": code, "message": ErrorCode.user_error_code[code]})
 
-        exists_data = user_table.email_exists(email)  #邮箱已被注册
+        exists_data = user_table.email_exists(email)  # 邮箱已被注册
         if not exists_data.success:
             return jsonify({"code": -1, "message": exists_data.error})  # 这个错误由数据库操作捕获的异常产生
         elif exists_data.data:
             code = -3
             return jsonify({"code": code, "message": ErrorCode.email_error_code[code]})
 
-        get_flag = email_code_table.query_code(username)  #获取发送出去的验证码
+        get_flag = email_code_table.query_code(username)  # 获取发送出去的验证码
         if not get_flag.success:
             return jsonify({"code": -1, "message": get_flag.error})
 
-        if not is_verification_code_valid(get_flag.data, client_email_code):  #校验邮箱验证码
+        if not is_verification_code_valid(get_flag.data, client_email_code):  # 校验邮箱验证码
             code = -4
             return jsonify({"code": code, "message": ErrorCode.email_error_code[code]})
 
-        delete_flag = email_code_table.delete_code(username)  #删除验证码
+        delete_flag = email_code_table.delete_code(username)  # 删除验证码
         if not delete_flag.success:
             return jsonify({"code": -1, "message": delete_flag.error})
 
-        get_flag = user_table.get_user_by_invite_code(boss_invite_code)  #判断邀请码是否存在
-        if get_flag is None:  #邀请码不存在
+        get_flag = user_table.get_user_by_invite_code(boss_invite_code)  # 判断邀请码是否存在
+        if get_flag is None:  # 邀请码不存在
             code = -9
             return jsonify({"code": code, "message": ErrorCode.user_error_code[code]})
         elif not get_flag.success:
             return jsonify({"code": -1, "message": get_flag.error})
 
         boss_agent_id, user_type, boss_username = get_flag.data
-        self_invite_code = generate_full_invite_code(username)  #创建自己的邀请码
+        self_invite_code = generate_full_invite_code(username)  # 创建自己的邀请码
 
         add_flag = user_table.create_user(username, email, password, phone, self_invite_code, user_type + 1,
                                           boss_agent_id, boss_username)
@@ -276,7 +276,7 @@ def init_blueprint(db_pool: DatabasePool):
             from_username = data['from_username']
             to_username = data['to_username']
             quantity = data["quantity"]
-            transaction_type = data["transaction_type"]  #分配0,赠送1
+            transaction_type = data["transaction_type"]  # 分配0,赠送1
             user_token = request.headers["Token"]
         except KeyError:
             code = -3
@@ -290,31 +290,31 @@ def init_blueprint(db_pool: DatabasePool):
         if not get_flag.success:
             return jsonify({"code": -1, "message": get_flag.error})
 
-        from_username_remain = get_flag.data[0]  #点数不足
+        from_username_remain = get_flag.data[0]  # 点数不足
         if from_username_remain < quantity:
             code = -7
             return jsonify({"code": code, "message": ErrorCode.user_error_code[code]})
 
-        get_flag = user_table.get_user_balance(to_username)  #目标点数
+        get_flag = user_table.get_user_balance(to_username)  # 目标点数
         if not get_flag.success:
             return jsonify({"code": -1, "message": get_flag.error})
         to_username_remain = get_flag.data[0]
 
         from_username_remain -= quantity
         to_username_remain += quantity
-        update_flag = user_table.update_balance(from_username, from_username_remain)  #减余额
+        update_flag = user_table.update_balance(from_username, from_username_remain)  # 减余额
         if not update_flag.success:
             return jsonify({"code": -1, "message": update_flag.error})
-        update_flag = user_table.update_balance(to_username, to_username_remain)  #加余额
+        update_flag = user_table.update_balance(to_username, to_username_remain)  # 加余额
         if not update_flag.success:
             return jsonify({"code": -1, "message": update_flag.error})
 
-        get_flag = user_table.get_id_by_username(from_username)  #获取来源ID
+        get_flag = user_table.get_id_by_username(from_username)  # 获取来源ID
         if not get_flag.success:
             return jsonify({"code": -1, "message": get_flag.error})
         from_id = get_flag.data[0]
 
-        get_flag = user_table.get_id_by_username(to_username)  #获取目标ID
+        get_flag = user_table.get_id_by_username(to_username)  # 获取目标ID
         if not get_flag.success:
             return jsonify({"code": -1, "message": get_flag.error})
         to_id = get_flag.data[0]
@@ -368,12 +368,12 @@ def init_blueprint(db_pool: DatabasePool):
 
         return jsonify({"code": 0, "message": '', "record": record})
 
-    @bp.route('/api/agent/create_redeem', methods=['POST'])  #创建兑换码
+    @bp.route('/api/agent/create_redeem', methods=['POST'])  # 创建兑换码
     def create_redeem():
         data = request.get_json()
         try:
             username = data['username']
-            quantity = data['quantity']  #金额
+            quantity = data['quantity']  # 金额
             user_token = request.headers["Token"]
         except KeyError:
             code = -3
@@ -387,30 +387,30 @@ def init_blueprint(db_pool: DatabasePool):
         if not get_flag.success:
             return jsonify({"code": -1, "message": get_flag.error})
 
-        username_remain = get_flag.data[0]  #点数不足
+        username_remain = get_flag.data[0]  # 点数不足
         if username_remain < quantity:
             code = -7
             return jsonify({"code": code, "message": ErrorCode.user_error_code[code]})
         username_remain -= quantity
 
-        update_flag = user_table.update_balance(username, username_remain)  #数据库减余额
+        update_flag = user_table.update_balance(username, username_remain)  # 数据库减余额
         if not update_flag.success:
             return jsonify({"code": -1, "message": update_flag.error})
 
-        redeem_code = generate_redeem(username, quantity)  #生成兑换码
+        redeem_code = generate_redeem(username, quantity)  # 生成兑换码
 
-        get_flag = user_table.get_id_by_username(username)  #获取ID
+        get_flag = user_table.get_id_by_username(username)  # 获取ID
         if not get_flag.success:
             return jsonify({"code": -1, "message": get_flag.error})
         self_id = get_flag.data[0]
 
-        add_flag = redeem_table.create_redeem_code(redeem_code, quantity, self_id, username)  #添加兑换码到数据库
+        add_flag = redeem_table.create_redeem_code(redeem_code, quantity, self_id, username)  # 添加兑换码到数据库
         if not add_flag.success:
             return jsonify({"code": -1, "message": get_flag.error})
 
         return jsonify({"code": 0, "message": '创建成功'})
 
-    @bp.route('/api/agent/get_redeem', methods=['POST'])  #获取兑换码
+    @bp.route('/api/agent/get_redeem', methods=['POST'])  # 获取兑换码
     def get_redeem():
         data = request.get_json()
         try:
@@ -424,17 +424,17 @@ def init_blueprint(db_pool: DatabasePool):
         if user_token is not True:
             return user_token
 
-        get_flag = redeem_table.get_redeem_code(username)  #获取兑换码
+        get_flag = redeem_table.get_redeem_code(username)  # 获取兑换码
         if not get_flag.success:
             return jsonify({"code": -1, "message": get_flag.error})
 
         return jsonify({"code": 0, "message": get_flag.data})
 
-    @bp.route('/api/agent/delete_redeem', methods=['POST'])  #删除兑换码
+    @bp.route('/api/agent/delete_redeem', methods=['POST'])  # 删除兑换码
     def delete_redeem():
         data = request.get_json()
         try:
-            code_id = data['code_id']  #兑换码ID
+            code_id = data['code_id']  # 兑换码ID
             user_token = request.headers["Token"]
         except KeyError:
             code = -3
@@ -444,7 +444,7 @@ def init_blueprint(db_pool: DatabasePool):
         if user_token is not True:
             return user_token
 
-        delete_flag = redeem_table.delete_redeem_code(code_id)  #添加兑换码到数据库
+        delete_flag = redeem_table.delete_redeem_code(code_id)  # 添加兑换码到数据库
         if not delete_flag.success:
             return jsonify({"code": -1, "message": delete_flag.error})
 

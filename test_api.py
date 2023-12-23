@@ -47,7 +47,7 @@ class Agent:
             "phone": phone,
             "email": email,
             "email_code": f'{email_code}-{int(time.time())}',  # 注册验证码
-            "boss_invite_code": boss_invite_code,  #邀请码
+            "boss_invite_code": boss_invite_code,  # 邀请码
         }
         try:
             response = requests.post(url=self.host_url + cur_url, json=args)
@@ -106,7 +106,7 @@ class Agent:
         except (json.decoder.JSONDecodeError, requests.exceptions.ConnectionError) as e:
             return None  # "网络连接异常"
 
-    def agent_transaction(self, to_username: str, quantity: int, transaction_type: int):  #分配0,赠送1
+    def agent_transaction(self, to_username: str, quantity: int, transaction_type: int):  # 分配0,赠送1
         cur_url = 'api/agent/transaction'
         args = {
             "from_username": self.username,
@@ -121,7 +121,7 @@ class Agent:
         except (json.decoder.JSONDecodeError, requests.exceptions.ConnectionError) as e:
             return None  # "网络连接异常"
 
-    def get_transaction_out(self):  #卖出的交易
+    def get_transaction_out(self):  # 卖出的交易
         cur_url = 'api/agent/get_trans_b_s'
         args = {
             "sender_name": self.username,
@@ -133,7 +133,7 @@ class Agent:
         except (json.decoder.JSONDecodeError, requests.exceptions.ConnectionError) as e:
             return None  # "网络连接异常"
 
-    def get_transaction_in(self):  #进入的交易
+    def get_transaction_in(self):  # 进入的交易
         cur_url = 'api/agent/get_trans_b_r'
         args = {
             "receiver_name": self.username,
@@ -145,7 +145,7 @@ class Agent:
         except (json.decoder.JSONDecodeError, requests.exceptions.ConnectionError) as e:
             return None  # "网络连接异常"
 
-    def create_redeem(self, quantity: int):  #创建兑换码
+    def create_redeem(self, quantity: int):  # 创建兑换码
         cur_url = 'api/agent/create_redeem'
         args = {
             "username": self.username,
@@ -158,7 +158,7 @@ class Agent:
         except (json.decoder.JSONDecodeError, requests.exceptions.ConnectionError) as e:
             return None  # "网络连接异常"
 
-    def get_redeem(self):  #创建兑换码
+    def get_redeem(self):  # 创建兑换码
         cur_url = 'api/agent/get_redeem'
         args = {
             "username": self.username,
@@ -170,7 +170,7 @@ class Agent:
         except (json.decoder.JSONDecodeError, requests.exceptions.ConnectionError) as e:
             return None  # "网络连接异常"
 
-    def delete_redeem(self, code_id: int):  #创建兑换码
+    def delete_redeem(self, code_id: int):  # 创建兑换码
         cur_url = 'api/agent/delete_redeem'
         args = {
             "code_id": code_id,
@@ -188,7 +188,7 @@ p = "2161826815www"
 i_code = "92e42f41cb2d4fece3c480448c62b6655ecf07c5cdb9379c1f5455c7d9dd4860"
 a = Agent()
 a.agent_login(u, p)
-# a.create_redeem(20)
-ret = a.get_redeem()
+ret = a.create_redeem(20)  # 不是人民币,是点数
+# ret = a.get_redeem()
 print(ret)
-#832a8801515ae654041d84d139fce6f79b23f2fe43c7e13f749094fbd4ddc3a9
+# 832a8801515ae654041d84d139fce6f79b23f2fe43c7e13f749094fbd4ddc3a9

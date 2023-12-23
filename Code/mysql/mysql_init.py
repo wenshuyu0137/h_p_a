@@ -50,7 +50,7 @@ class DatabasePool:
                             );
                             ''')
 
-            #验证码
+            # 验证码
             cursor.execute('''
                             CREATE TABLE IF NOT EXISTS email_code (
                                 code_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -98,7 +98,7 @@ class DatabasePool:
                             points_value INT NOT NULL,
                             master_id INT,
                             master_name VARCHAR(50) NOT NULL,
-                            status BOOLEAN DEFAULT FALSE,  
+                            status BOOLEAN DEFAULT TRUE,  
                             used_by VARCHAR(255) DEFAULT NULL,
                             update_time DATETIME DEFAULT CURRENT_TIMESTAMP,
                             FOREIGN KEY (master_id) REFERENCES Agent_Users(id)
