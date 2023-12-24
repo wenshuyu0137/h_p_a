@@ -78,7 +78,7 @@ def init_blueprint(db_pool: DatabasePool):
             return jsonify({"code": -1, "message": user_exit_flag.error})  # 这个错误由数据库操作捕获的异常产生
         return user_exit_flag.data
 
-    @bp.route('/', methods=['POST'])
+    @bp.route('/', methods=['GET'])
     def say_hi():
         return json.dumps({"code": 0, "message": "hello world!"})
 
