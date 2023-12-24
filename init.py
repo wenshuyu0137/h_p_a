@@ -12,3 +12,16 @@ CORS(app)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=9000, debug=True)
+
+'''
+[Unit]
+Description=Gunicorn instance to serve gpt_server
+After=network.target
+
+[Service]
+WorkingDirectory=/home/lighthouse/h_p_a
+ExecStart=sudo gunicorn --workers 12 --timeout=150 init:app
+
+[Install]
+WantedBy=multi-user.target
+'''
