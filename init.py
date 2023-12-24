@@ -11,7 +11,7 @@ app = flask_app.create_app()
 CORS(app)
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=9000, debug=True)
+    app.run(host="0.0.0.0", port=8100, debug=True)
 
 '''
 [Unit]
@@ -20,7 +20,7 @@ After=network.target
 
 [Service]
 WorkingDirectory=/home/lighthouse/h_p_a
-ExecStart=sudo gunicorn --workers 12 --timeout=150 init:app
+ExecStart=sudo gunicorn --workers 12 --timeout=150 --bind 0.0.0.0:8100 init:app
 
 [Install]
 WantedBy=multi-user.target
