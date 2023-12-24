@@ -94,6 +94,11 @@ class AgentUsers:
         params = (username,)
         return self.execute_sql(query, params, return_type="fetchone")
 
+    def get_all_sub_agent(self, username):
+        query = "SELECT boss_agent_name FROM Agent_Users WHERE username=%s"
+        params = (username,)
+        return self.execute_sql(query, params, return_type="fetchall")
+
     def get_user_by_invite_code(self, invite_code):
         query = "SELECT id, user_type, username FROM Agent_Users WHERE invite_code=%s"
         params = (invite_code,)
@@ -117,7 +122,7 @@ class AgentUsers:
         query = """UPDATE Agent_Users SET balance=%s WHERE username=%s"""
         return self.execute_sql(query, (balance, username), return_type="rowcount")
 
-    #修改密码
+    # 修改密码
     def update_password(self, username, password):
         user_exists_result = self.user_exists(username)
         if not user_exists_result.success or not user_exists_result.data:

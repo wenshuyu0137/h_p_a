@@ -277,7 +277,27 @@ def init_blueprint(db_pool: DatabasePool):
 
         return jsonify({"code": 0, "message": get_flag.data})
 
-    @bp.route('/api/agent/transaction', methods=['POST'])  # 交易
+    @bp.route('/api/agent/load_all_sub_agent', methods=['POST'])  # 获取自己的下级代理
+    def load_all_sub_agent():
+        data = request.get_json()
+        try:
+            username = data['username']
+            user_token = request.headers["Token"]
+        except KeyError:
+            code = -3
+            return jsonify({"code": code, "message": ErrorCode.public_error_code[code]})
+
+        user_token_check = validate_user_token(user_token)
+        if user_token_check is not True:
+            return user_token_check
+
+        get_flag = user_table.get_all_sub_agent(username)  # 查表获取所有下级代理
+        if not get_flag.success:
+            return jsonify({"code": -1, "message": get_flag.error})
+
+        return jsonify({"code": 0, "message": get_flag.data})
+
+    @bp.route('/api/agent/transaction', methods=['POST'])  # 发起HP点的交易
     def transaction():
         data = request.get_json()
         try:
@@ -356,7 +376,7 @@ def init_blueprint(db_pool: DatabasePool):
         return jsonify({"code": 0, "message": '', "record": record})
 
     @bp.route('/api/agent/get_trans_b_r', methods=['POST'])
-    def get_transaction_by_reciever():
+    def get_transaction_by_receiver():
         data = request.get_json()
         try:
             receiver_name = data['receiver_name']
@@ -418,7 +438,7 @@ def init_blueprint(db_pool: DatabasePool):
 
         return jsonify({"code": 0, "message": '创建成功'})
 
-    @bp.route('/api/agent/get_redeem', methods=['POST'])  # 获取兑换码
+    @bp.route('/api/agent/get_redeem', methods=['POST'])  # 获取代理拥有的兑换码
     def get_redeem():
         data = request.get_json()
         try:

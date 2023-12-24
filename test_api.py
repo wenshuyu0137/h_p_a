@@ -94,6 +94,18 @@ class Agent:
         except (json.decoder.JSONDecodeError, requests.exceptions.ConnectionError) as e:
             return None  # "网络连接异常"
 
+    def load_all_sub_agent(self):
+        cur_url = 'api/agent/load_all_sub_agent'
+        args = {
+            "username": self.username,
+        }
+        try:
+            response = requests.post(url=self.host_url + cur_url, json=args, headers=self.user_token)
+            data = json.loads(response.text)
+            return data
+        except (json.decoder.JSONDecodeError, requests.exceptions.ConnectionError) as e:
+            return None  # "网络连接异常"
+
     def agent_get_info(self):
         cur_url = 'api/agent/info'
         args = {

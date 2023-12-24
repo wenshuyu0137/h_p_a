@@ -30,7 +30,8 @@ class DatabasePool:
             balance         可分配余额
             password        密码
             user_type       代理类型 0: 超级用户即我自己, 1: 一级代理, 2: 二级代理, 以此类推
-            boss_agent_id 上级代理ID, 如果没有则为NULL
+            boss_agent_id   上级代理ID, 如果没有则为NULL
+            boss_agent_name 上级代理用户名,
             create_time     创建时间
             """
             cursor.execute('''
