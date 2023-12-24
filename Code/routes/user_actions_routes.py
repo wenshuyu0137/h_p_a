@@ -176,6 +176,10 @@ def init_blueprint(db_pool: DatabasePool):
             return jsonify({"code": -1, "message": get_flag.error})
 
         boss_agent_id, user_type, boss_username = get_flag.data
+        if user_type >= 3:
+            code = -10
+            return jsonify({"code": code, "message": ErrorCode.user_error_code[code]})  # 目前只支持三级代理
+
         self_invite_code = generate_full_invite_code(username)  # 创建自己的邀请码
 
         add_flag = user_table.create_user(username, email, password, phone, self_invite_code, user_type + 1,
