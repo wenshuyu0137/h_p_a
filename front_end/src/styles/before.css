@@ -1,0 +1,115 @@
+/* Form 布局 */
+form {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 10px;
+  width: 100%;
+  max-width: 350px;
+  margin: 10px auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+/* 输入框和按钮的整体样式 */
+.form-control {
+  width: 100%;
+  padding: 4px;
+  margin: 2px auto;
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* 容器包裹输入框和发送验证码按钮 */
+.email-input-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 邮箱输入框和发送验证码按钮共用样式 */
+.input-field,
+.button-send-code {
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+.input-field {
+  margin-right: 10px;
+}
+
+/* 发送验证码按钮的样式 */
+.button-send-code {
+  padding: 4px 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* 错误信息显示在邮箱输入框下方 */
+.email-verification-container .error-message {
+  order: 2;
+  width: 100%;
+  margin-top: 4px;
+}
+
+/* 应用于所有的表单字段，包括输入框和按钮 */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+before_button,
+textarea {
+  flex: 1 0 100%;
+  margin: 4px 0;
+  padding: 2px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* 调整标签的字体大小和外边距 */
+.label {
+  font-size: 0.75rem;
+  margin-bottom: 2px;
+}
+
+/* 错误信息样式 */
+.error-message {
+  font-size: 0.65rem;
+  color: #fd0404;
+  margin-top: 2px;
+  margin-bottom: 4px;
+}
+
+/* 辅助按钮样式，如注册和忘记密码 */
+.aux-button {
+  padding: 8px 16px;
+  font-size: 0.75rem;
+  margin: 4px 2px;
+  color: white;
+  background-color: #0e0400;
+  cursor: pointer; /* 鼠标悬停时显示指针 */
+  text-align: center; /* 水平居中文本 */
+  display: block; /* 或者使用 'display: inline-block;' */
+  width: 100%; /* 使按钮宽度与容器一致 */
+  box-sizing: border-box; /* 确保填充和边框不会增加宽度 */
+}
+
+button[type="submit"] {
+  padding: 10px 20px; /* 增加垂直填充以垂直居中文本 */
+  margin: 6px 0;
+  background-color: #4caf50;
+  color: white;
+  border: none; /* 移除边框 */
+  cursor: pointer; /* 鼠标悬停时显示指针 */
+  text-align: center; /* 水平居中文本 */
+  display: block; /* 或者使用 'display: inline-block;' */
+  width: 100%; /* 使按钮宽度与容器一致 */
+  box-sizing: border-box; /* 确保填充和边框不会增加宽度 */
+}
+
+/* 可能需要调整的其他样式保持不变 */

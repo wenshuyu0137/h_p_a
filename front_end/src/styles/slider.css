@@ -1,0 +1,102 @@
+.scrollable-container {
+  max-height: 40%; /* 根据设计调整这个值 */
+  overflow-y: auto;
+  margin-bottom: 20px; /* 两个容器之间的间距 */
+}
+
+/* 滚动条轨道 */
+.scrollable-container::-webkit-scrollbar {
+  background: #f1f1f1; /* 轨道颜色 */
+  border-radius: 10px; /* 轨道圆角 */
+  width: 12px;
+}
+
+.toggle-icon {
+  z-index: 100; /* 至少要与侧边栏的 z-index 相同 */
+  position: relative; /* 或其他定位值 */
+}
+
+/* 侧边栏容器样式 */
+.sidebar-container {
+  position: fixed; /* 固定定位 */
+  top: 0;
+  left: 0;
+  transition: transform 0.3s ease; /* 平滑过渡动画 */
+  z-index: 100; /* 确保侧边栏在其他内容上方 */
+  /* 其他样式 */
+}
+
+.model-dropdown-content {
+  border-width: 2px;
+  color: rgb(201, 166, 247);
+  border-radius: 10px;
+}
+
+.hisrory-sessions {
+  position: relative; /* 添加这个属性 */
+  border-width: 2px;
+  border-radius: 10px;
+  color: rgb(201, 166, 247);
+}
+
+.session-function-dropdown {
+  border-radius: 10px;
+  position: absolute; /* 绝对定位 */
+  bottom: 100%; /* 位置靠顶 */
+  right: 0px;
+  background-color: white; /* 背景颜色白色 */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+              0 4px 6px -4px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+  padding-top: 0.25rem; /* 上内边距为4px */
+  padding-bottom: 0.25rem; /* 下内边距为4px */
+  z-index: 1000;
+}
+
+.session-function-button {
+  border: 2px;
+  width: 100%; /* 元素宽度为父容器的100% */
+  border-radius: 10px;
+  font-size: 0.875rem; /* 文字大小为sm，通常sm等于0.875rem */
+  color: #58da3e; /* 文字颜色设置为深灰色，text-gray-700可能对应的是这个颜色值 */
+  /* 悬停效果 */
+  transition: background-color 0.3s; /* 背景颜色变化过渡时间 */
+}
+
+.session-function-button:hover {
+  background-color: #f3f3f3; /* 鼠标悬停时背景颜色变为灰色，hover:bg-gray-100可能对应的是这个颜色值 */
+}
+
+.toggle-button {
+  position: fixed; /* 固定定位 */
+  top: 50%; /* 垂直居中 */
+  left: 0; /* 移动到左边 */
+  transform: translateY(-50%); /* 垂直居中对齐 */
+  z-index: 101; /* 确保按钮在其他内容上方 */
+  font-size: 1rem; /* 图标大小，如果图标显示不出来，检查字体文件是否正确加载 */
+  padding: 0.5rem; /* 内边距 */
+  border: none; /* 移除边框 */
+  background-color: transparent; /* 背景透明 */
+  cursor: pointer; /* 鼠标样式 */
+  /* 确保图标库被正确加载，例如 FontAwesome */
+}
+
+/* 鼠标悬停或聚焦时的背景色 */
+.toggle-button:hover,
+.toggle-button:focus {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.divider-container {
+  text-align: center;
+  top: 0%;
+}
+
+.sidebar-divider {
+  border-top: 1px solid #eee;
+}
+
+.section-title {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: bold;
+}

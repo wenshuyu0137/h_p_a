@@ -1,0 +1,36 @@
+.user-info p {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5em;
+}
+
+.info-key {
+  font-weight: bold;
+  width: 80px;
+  margin-right: 1em; /* 或者使用 flex-basis */
+}
+
+.info-value {
+  text-align: left;
+  flex-grow: 1;
+}
+
+.user-info-close-button {
+  position: absolute;
+  top: 1rem; /* 根据需要调整 */
+  right: 1rem; /* 根据需要调整 */
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0; /* 移除内边距确保图标紧贴按钮边缘 */
+}
+
+.user-info-close-icon {
+  font-size: 24px;
+  color: #e41515; /* 或者任何您希望的颜色 */
+}
+
+.bg-white.p-4.rounded {
+  position: relative; /* 关键是要在这个容器上添加 relative 定位 */
+  /* 其他样式保持不变 */
+}

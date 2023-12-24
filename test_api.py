@@ -15,8 +15,8 @@ UPDATE Agent_Users SET balance=100 WHERE username="wenshuyu";
 
 class Agent:
     def __init__(self):
-        self.host_url = 'https://www.wenshuyu.chat/agent'
-        # self.host_url = "http://170.106.187.38:9000/"
+        # self.host_url = 'https://www.wenshuyu.chat/agent'
+        self.host_url = "http://170.106.187.38:9000/"
         self.user_token = {
             "token": ""
         }
@@ -200,7 +200,8 @@ p = "2161826815www"
 i_code = "92e42f41cb2d4fece3c480448c62b6655ecf07c5cdb9379c1f5455c7d9dd4860"
 a = Agent()
 a.agent_login(u, p)
-ret = a.create_redeem(20)  # 不是人民币,是点数
+# ret = a.create_redeem(20)  # 不是人民币,是点数
 # ret = a.get_redeem()
+ret = a.load_all_sub_agent()
 print(ret)
 # 832a8801515ae654041d84d139fce6f79b23f2fe43c7e13f749094fbd4ddc3a9
