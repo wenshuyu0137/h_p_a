@@ -16,9 +16,6 @@ def init_blueprint():
     @bp.route('/', defaults={'filename': ''})
     @bp.route('/<path:filename>')
     def serve(filename):
-        print("hello")
-        print(build_folder_path)
-        print(filename)
         if filename and os.path.exists(os.path.join(build_folder_path, filename)):
             return send_from_directory(build_folder_path, filename)
         else:
