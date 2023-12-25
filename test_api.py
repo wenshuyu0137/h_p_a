@@ -15,8 +15,8 @@ UPDATE Agent_Users SET balance=100 WHERE username="wenshuyu";
 
 class Agent:
     def __init__(self):
-        # self.host_url = 'https://www.wenshuyu.chat/agent'
-        self.host_url = "http://170.106.187.38:9000/"
+        self.host_url = 'https://www.wenshuyu.chat/agent'
+        # self.host_url = "http://170.106.187.38:9000/"
         self.user_token = {
             "token": ""
         }
