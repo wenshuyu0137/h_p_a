@@ -94,9 +94,9 @@ class AgentUsers:
         params = (username,)
         return self.execute_sql(query, params, return_type="fetchone")
 
-    def get_all_sub_agent(self, username):
-        query = "SELECT boss_agent_name FROM Agent_Users WHERE username=%s"
-        params = (username,)
+    def get_all_sub_agent(self, boss_agent_name):
+        query = "SELECT username FROM Agent_Users WHERE boss_agent_name=%s"
+        params = (boss_agent_name,)
         return self.execute_sql(query, params, return_type="fetchall")
 
     def get_user_by_invite_code(self, invite_code):

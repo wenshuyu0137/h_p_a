@@ -145,7 +145,7 @@ class Agent:
         except (json.decoder.JSONDecodeError, requests.exceptions.ConnectionError) as e:
             return None  # "网络连接异常"
 
-    def get_transaction_in(self):  # 进入的交易
+    def get_transaction_in(self):  # 买入的交易
         cur_url = 'api/agent/get_trans_b_r'
         args = {
             "receiver_name": self.username,
@@ -170,7 +170,7 @@ class Agent:
         except (json.decoder.JSONDecodeError, requests.exceptions.ConnectionError) as e:
             return None  # "网络连接异常"
 
-    def get_redeem(self):  # 创建兑换码
+    def get_redeem(self):  # 获取兑换码
         cur_url = 'api/agent/get_redeem'
         args = {
             "username": self.username,
@@ -182,7 +182,7 @@ class Agent:
         except (json.decoder.JSONDecodeError, requests.exceptions.ConnectionError) as e:
             return None  # "网络连接异常"
 
-    def delete_redeem(self, code_id: int):  # 创建兑换码
+    def delete_redeem(self, code_id: int):  # 创建兑换码 #TODO 撤回
         cur_url = 'api/agent/delete_redeem'
         args = {
             "code_id": code_id,
@@ -202,6 +202,8 @@ a = Agent()
 a.agent_login(u, p)
 # ret = a.create_redeem(20)  # 不是人民币,是点数
 # ret = a.get_redeem()
-ret = a.load_all_sub_agent()
+# ret = a.load_all_sub_agent()
+# ret = a.get_transaction_in()
+ret = a.get_redeem()
 print(ret)
 # 832a8801515ae654041d84d139fce6f79b23f2fe43c7e13f749094fbd4ddc3a9
