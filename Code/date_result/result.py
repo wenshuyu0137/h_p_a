@@ -39,5 +39,6 @@ class ErrorCode:
     }
 
     redeem_error_code = {
-        -3: "兑换码不存在"
+        -3: "兑换码不存在",
+        -4: "兑换码已失效"
     }

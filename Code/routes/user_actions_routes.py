@@ -481,6 +481,11 @@ def init_blueprint(db_pool: DatabasePool):
             code = -3
             return jsonify({"code": code, "message": ErrorCode.redeem_error_code[code]})  #兑换码不存在
 
+        valid_code_flag = get_flag.data[5]  #是否被使用
+        if not valid_code_flag:
+            code = -4
+            return jsonify({"code": code, "message": ErrorCode.redeem_error_code[code]})  #兑换码已被使用
+
         balance = get_flag.data[2]  #兑换码的值
 
         get_flag = user_table.get_user_balance(username)

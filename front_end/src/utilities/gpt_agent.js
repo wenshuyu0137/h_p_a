@@ -306,10 +306,11 @@ class GptAgent {
     }
   }
 
-  async undoRedeem(codeId) {
+  async undoRedeem(redeem_code) {
     const curUrl = "api/agent/undoRedeem";
     const args = {
-      codeId,
+      username: this.username,
+      redeem_code,
     };
 
     try {

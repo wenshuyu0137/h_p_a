@@ -15,12 +15,10 @@ function Redeems({ redeems, refreshData, gpt_agent }) {
   const [amount, setAmount] = useState(""); // 新增状态来存储输入框的金额
 
   const [showPopup, setShowPopup] = useState(false);
-  // 处理生成兑换码按钮点击事件
+  // 处理弹窗中的确定和取消按钮
   const handleGenerateClick = () => {
     setShowPopup(true);
   };
-
-  // 处理弹窗中的确定和取消按钮
 
   const handleSubmit = async () => {
     // 检查amount是否是一个有效的整数
@@ -52,6 +50,23 @@ function Redeems({ redeems, refreshData, gpt_agent }) {
 
   const handleCancel = () => {
     setShowPopup(false);
+  };
+
+  // 处理生成兑换码按钮点击事件
+  const handleUndoClick = async (code) => {
+    try {
+      const result = await gpt_agent.undoRedeem(code);
+
+      if (result && result.code === 0) {
+        alert("撤销成功");
+        refreshData(); // 刷新数据
+      } else if (result) {
+        alert(result.message || "撤销失败");
+      }
+    } catch (error) {
+      console.error("撤销处理错误", error);
+      alert("撤销处理时发生错误");
+    }
   };
 
   return (
@@ -104,7 +119,12 @@ function Redeems({ redeems, refreshData, gpt_agent }) {
               <td>{single[6]}</td>
               <td>{formatTime(single[7])}</td>
               <td className="action-cell">
-                <button className="undo-button">退回</button>
+                <button
+                  className="undo-button"
+                  onClick={() => handleUndoClick(single[1])} // 修改为箭头函数
+                >
+                  撤回
+                </button>
               </td>
             </tr>
           ))}
