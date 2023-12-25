@@ -4,7 +4,7 @@ from flask import Blueprint, send_from_directory
 cur_path = os.getcwd()
 build_folder_path = os.path.join(cur_path, "front_end", "build")
 
-bp = Blueprint('front_end', __name__, static_url_path='')
+bp = Blueprint('agent_front_end', __name__, static_url_path='')
 
 
 def init_blueprint():
@@ -16,6 +16,7 @@ def init_blueprint():
     @bp.route('/', defaults={'filename': ''})
     @bp.route('/<path:filename>')
     def serve(filename):
+        print(os.path.join(build_folder_path, filename))
         if filename and os.path.exists(os.path.join(build_folder_path, filename)):
             return send_from_directory(build_folder_path, filename)
         else:
