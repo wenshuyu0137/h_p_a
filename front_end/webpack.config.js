@@ -7,7 +7,7 @@ module.exports = {
     // 输出配置
     path: path.join(__dirname, "/build"),
     filename: "bundle.js",
-    publicPath: "/",
+    publicPath: "/agent/",
   },
   module: {
     // 加载器配置
@@ -35,12 +35,11 @@ module.exports = {
     }),
   ],
   devServer: {
-    host: '0.0.0.0', // 可以让外部设备访问您的服务器
+    host: "0.0.0.0", // 可以让外部设备访问您的服务器
     static: {
       directory: path.join(__dirname, "build"),
     },
-    historyApiFallback: {
-    },
+    historyApiFallback: {},
     compress: true,
     port: 9000,
     open: true,
