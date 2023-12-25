@@ -1,7 +1,7 @@
 // transactionIn.js
 import React from "react";
 
-function TransactionIn({ InRecords, fetchTransactionIn }) {
+function TransactionIn({ InRecords, refreshData }) {
   // 函数用于格式化时间字符串
   const formatTime = (timeString) => {
     // 解析时间字符串并创建一个 Date 对象
@@ -13,7 +13,7 @@ function TransactionIn({ InRecords, fetchTransactionIn }) {
 
   return (
     <>
-      <button className="refresh-button" onClick={fetchTransactionIn}>
+      <button className="refresh-button" onClick={refreshData}>
         刷新
       </button>
       <table>

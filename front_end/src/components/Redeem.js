@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import "../styles/redeem.css"; // 引入样式文件
 
-function Redeems({ redeems, fetchRedeems }) {
+function Redeems({ redeems, refreshData, gpt_agent }) {
   // 函数用于格式化时间字符串
   const formatTime = (timeString) => {
     // 解析时间字符串并创建一个 Date 对象
@@ -12,6 +12,8 @@ function Redeems({ redeems, fetchRedeems }) {
     return timeObj.toLocaleString("zh-CN", { hour12: false });
   };
 
+  const [amount, setAmount] = useState(""); // 新增状态来存储输入框的金额
+
   const [showPopup, setShowPopup] = useState(false);
   // 处理生成兑换码按钮点击事件
   const handleGenerateClick = () => {
@@ -19,9 +21,33 @@ function Redeems({ redeems, fetchRedeems }) {
   };
 
   // 处理弹窗中的确定和取消按钮
-  const handleSubmit = () => {
-    // 处理提交逻辑
-    setShowPopup(false);
+
+  const handleSubmit = async () => {
+    // 检查amount是否是一个有效的整数
+    if (!/^\d+$/.test(amount)) {
+      alert("请输入有效的整数金额");
+      return;
+    }
+
+    // 将字符串转换为整数
+    const amountInt = parseInt(amount, 10);
+
+    try {
+      const result = await gpt_agent.createRedeem(amountInt);
+
+      if (result && result.code === 0) {
+        alert("生成成功");
+        setShowPopup(false);
+        setAmount(""); // 清空输入框
+        refreshData(); // 刷新数据
+      } else if (result) {
+        // 交易失败，显示错误消息
+        alert(result.message || "生成失败");
+      }
+    } catch (error) {
+      console.error("生成处理错误", error);
+      alert("生成时发生错误");
+    }
   };
 
   const handleCancel = () => {
@@ -33,7 +59,7 @@ function Redeems({ redeems, fetchRedeems }) {
       <button className="redeem-generate-button" onClick={handleGenerateClick}>
         生成兑换码
       </button>
-      <button className="refresh-button" onClick={fetchRedeems}>
+      <button className="refresh-button" onClick={refreshData}>
         刷新
       </button>
       {showPopup && (
@@ -41,7 +67,12 @@ function Redeems({ redeems, fetchRedeems }) {
           <div className="redeem-popup-backdrop" onClick={handleCancel}></div>
           <div className="redeem-create-popup">
             <label>
-              金额: <input type="text" />
+              点数:
+              <input
+                type="text"
+                value={amount} // 将输入框的值绑定到amount状态
+                onChange={(e) => setAmount(e.target.value)} // 更新状态以反映输入框的变化
+              />
             </label>
             <div className="redeem-button-container">
               <button onClick={handleSubmit}>确定</button>

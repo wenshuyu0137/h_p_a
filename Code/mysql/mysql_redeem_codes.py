@@ -54,16 +54,21 @@ class RedeemCodes:  # 兑换码
         return self.execute_sql(query, params, return_type="lastrowid")
 
     # RedeemCodes表 - 获取兑换码
-    def get_redeem_code(self, master_name:str):
+    def get_redeem_code(self, master_name: str):  #获取名下所有兑换码
         query = "SELECT * FROM RedeemCodes WHERE master_name = %s"
         params = (master_name,)
         return self.execute_sql(query, params, return_type="fetchall")
+
+    def get_redeem_by_code(self, code: str):  #获取指定兑换码
+        query = "SELECT * FROM RedeemCodes WHERE code = %s"
+        params = (code,)
+        return self.execute_sql(query, params, return_type="fetchone")
 
     def update_redeem_code(self, use_status: bool, used_by: str, code: str):
         query = "UPDATE RedeemCodes SET status=%s, used_by=%s, update_time=%s WHERE code=%s"
         return self.execute_sql(query, (use_status, used_by, datetime.now(tz), code), return_type="rowcount")
 
-    def delete_redeem_code(self, code_id: int):
-        query = "DELETE FROM RedeemCodes WHERE id = %s"
-        params = (code_id,)
+    def delete_redeem_code(self, redeem_code: int):
+        query = "DELETE FROM RedeemCodes WHERE code = %s"
+        params = (redeem_code,)
         return self.execute_sql(query, params, return_type="rowcount")

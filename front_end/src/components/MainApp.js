@@ -169,6 +169,7 @@ function MainApp() {
             <SubAgentsTable
               subAgents={subAgents}
               refreshData={fetchSubAgents}
+              gpt_agent={gpt_agent}
             />
           )}
           {activeTab === "transactionOut" && (
@@ -184,7 +185,11 @@ function MainApp() {
             />
           )}
           {activeTab === "Redeem" && (
-            <Redeems redeems={redeems} refreshData={fetchRedeems} />
+            <Redeems
+              redeems={redeems}
+              refreshData={fetchRedeems}
+              gpt_agent={gpt_agent}
+            />
           )}
         </div>
       </div>

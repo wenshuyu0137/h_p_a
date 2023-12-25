@@ -458,11 +458,12 @@ def init_blueprint(db_pool: DatabasePool):
 
         return jsonify({"code": 0, "message": get_flag.data})
 
-    @bp.route('/api/agent/delete_redeem', methods=['POST'])  # 删除兑换码
+    @bp.route('/api/agent/undoRedeem', methods=['POST'])  # 删除兑换码
     def delete_redeem():
         data = request.get_json()
         try:
-            code_id = data['code_id']  # 兑换码ID
+            username = data["username"]
+            redeem_code = data['redeem_code']  # 兑换码ID
             user_token = request.headers["Token"]
         except KeyError:
             code = -3
@@ -472,7 +473,29 @@ def init_blueprint(db_pool: DatabasePool):
         if user_token is not True:
             return user_token
 
-        delete_flag = redeem_table.delete_redeem_code(code_id)  # 添加兑换码到数据库
+        get_flag = redeem_table.get_redeem_by_code(redeem_code)
+        if not get_flag.success:
+            return jsonify({"code": -1, "message": get_flag.error})
+
+        if get_flag.data is None:
+            code = -3
+            return jsonify({"code": code, "message": ErrorCode.redeem_error_code[code]})  #兑换码不存在
+
+        balance = get_flag.data[2]  #兑换码的值
+
+        get_flag = user_table.get_user_balance(username)
+        if not get_flag.success:
+            return jsonify({"code": -1, "message": get_flag.error})
+
+        username_remain = get_flag.data[0]
+
+        new_remain = username_remain + balance  #返回金额
+
+        update_flag = user_table.update_balance(username, new_remain)  #更新余额
+        if not update_flag.success:
+            return jsonify({"code": -1, "message": update_flag.error})
+
+        delete_flag = redeem_table.delete_redeem_code(redeem_code)  # 删除兑换码
         if not delete_flag.success:
             return jsonify({"code": -1, "message": delete_flag.error})
 

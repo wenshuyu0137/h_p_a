@@ -192,13 +192,13 @@ class GptAgent {
     }
   }
 
-  async agentTransaction(toUsername, quantity, transactionType = 0) {
+  async agentTransaction(to_username, quantity, transaction_type = 0) {
     const curUrl = "api/agent/transaction";
     const args = {
-      fromUsername: this.username,
-      toUsername,
+      from_username: this.username,
+      to_username,
       quantity,
-      transactionType,
+      transaction_type,
     };
 
     try {
@@ -306,8 +306,8 @@ class GptAgent {
     }
   }
 
-  async deleteRedeem(codeId) {
-    const curUrl = "api/agent/delete_redeem";
+  async undoRedeem(codeId) {
+    const curUrl = "api/agent/undoRedeem";
     const args = {
       codeId,
     };

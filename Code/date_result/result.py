@@ -37,3 +37,7 @@ class ErrorCode:
     public_error_code = {
         -3: "无效的参数"
     }
+
+    redeem_error_code = {
+        -3: "兑换码不存在"
+    }

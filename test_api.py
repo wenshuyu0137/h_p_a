@@ -183,7 +183,7 @@ class Agent:
             return None  # "网络连接异常"
 
     def delete_redeem(self, code_id: int):  # 创建兑换码 #TODO 撤回
-        cur_url = 'api/agent/delete_redeem'
+        cur_url = 'api/agent/undoRedeem'
         args = {
             "code_id": code_id,
         }
