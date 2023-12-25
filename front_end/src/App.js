@@ -16,7 +16,7 @@ function App() {
   const { isAuthenticated } = useAuth();
 
   return (
-    <Router basename="/">
+    <Router basename="/agent">
       <Routes>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
