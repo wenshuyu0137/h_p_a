@@ -1,9 +1,8 @@
 import json
-import os
 import random
 from string import ascii_letters, digits
 import requests
-from flask import Blueprint, request, jsonify, send_from_directory
+from flask import Blueprint, request, jsonify
 from ..date_result.result import *
 from ..mysql.mysql_agent_users import AgentUsers
 from ..mysql.mysql_init import DatabasePool
@@ -78,18 +77,6 @@ def init_blueprint(db_pool: DatabasePool):
         if not user_exit_flag.success:
             return jsonify({"code": -1, "message": user_exit_flag.error})  # 这个错误由数据库操作捕获的异常产生
         return user_exit_flag.data
-
-    cur_path = os.getcwd()
-    build_folder_path = os.path.join(cur_path, "front_end", "build")
-
-    @bp.route('/', defaults={'filename': ''})
-    @bp.route('/<path:filename>')
-    def serve(filename):
-        print(os.path.join(build_folder_path, filename))
-        if filename and os.path.exists(os.path.join(build_folder_path, filename)):
-            return send_from_directory(build_folder_path, filename)
-        else:
-            return send_from_directory(build_folder_path, 'index.html')
 
     @bp.route('/say_hi', methods=['GET'])
     def say_hi():
