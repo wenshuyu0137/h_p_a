@@ -2,7 +2,7 @@ import os
 from flask import Blueprint, send_from_directory
 
 cur_path = os.getcwd()
-build_folder_path = os.path.join(cur_path, "..", "front_end", "build")
+build_folder_path = os.path.join(cur_path, "front_end", "build")
 
 bp = Blueprint('front_end', __name__, static_url_path='')
 
