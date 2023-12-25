@@ -1,7 +1,7 @@
 class GptAgent {
   constructor(existingToken = "", existingUsername = "", authCallback) {
-    // this.hostUrl = "https://www.wenshuyu.chat/agent/";
-    this.hostUrl = "http://170.106.187.38:9000/";
+    this.hostUrl = "https://www.wenshuyu.chat/agent/";
+    // this.hostUrl = "http://170.106.187.38:9000/";
     this.userToken = existingToken ? JSON.parse(existingToken) : { token: "" };
     this.username = existingUsername || "";
     this.authCallback = authCallback;
