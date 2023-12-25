@@ -9,6 +9,9 @@ import userIcon from "../assets/images/user_icon.png"; // 引入用户图标
 import UserInfoDetails from "./UserInfoDetails";
 import Tab from "./Tab"; // 引入 Tab 组件
 import SubAgentsTable from "./SubAgentsTable"; // 引入 SubAgentsTable 组件
+import TransactionOut from "./transactionOut";
+import TransactionIn from "./transactionIn";
+import Redeems from "./Redeem";
 
 function MainApp() {
   const { gpt_agent } = useAuth(); // 解构
@@ -44,27 +47,92 @@ function MainApp() {
   } = useSidebarState();
 
   const [activeTab, setActiveTab] = useState("subAgents"); // 激活的选项卡
+
+  // 新增状态来跟踪每个选项卡的加载情况
+  const [loadedTabs, setLoadedTabs] = useState({
+    subAgents: false,
+    transactionOut: false,
+    transactionIn: false,
+    Redeem: false,
+  });
+
   const [subAgents, setSubAgents] = useState([]); // 存储下级代理信息
-
-  // 获取下级代理信息
-  useEffect(() => {
-    const fetchSubAgents = async () => {
-      try {
-        const response = await gpt_agent.loadAllSubAgents();
-        if (response.code === 0) {
-          setSubAgents(response.message);
-        } else {
-          console.error("获取下级代理失败:", response);
-        }
-      } catch (error) {
-        console.error("获取下级代理异常:", error);
+  const fetchSubAgents = async () => {
+    try {
+      const response = await gpt_agent.loadAllSubAgents();
+      if (response.code === 0) {
+        setSubAgents(response.message);
+      } else {
+        console.error("获取下级代理失败:", response.message);
       }
-    };
-
-    if (activeTab === "subAgents") {
-      fetchSubAgents();
+    } catch (error) {
+      console.error("获取下级代理异常:", error);
     }
-  }, [activeTab, gpt_agent]);
+  };
+
+  const [OutRecords, setOutRecords] = useState([]); // 卖出
+  const fetchTransactionOut = async () => {
+    try {
+      const response = await gpt_agent.getTransactionOut();
+      if (response.code === 0) {
+        setOutRecords(response.record);
+      } else {
+        console.error("获取记录失败:", response.message);
+      }
+    } catch (error) {
+      console.error("获取记录失败异常:", error);
+    }
+  };
+
+  const [InRecords, setInRecords] = useState([]); // 买入
+  const fetchTransactionIn = async () => {
+    try {
+      const response = await gpt_agent.getTransactionIn();
+      if (response.code === 0) {
+        setInRecords(response.record);
+      } else {
+        console.error("获取记录失败:", response.message);
+      }
+    } catch (error) {
+      console.error("获取记录失败异常:", error);
+    }
+  };
+
+  const [redeems, setRedeems] = useState([]); //兑换码
+  const fetchRedeems = async () => {
+    try {
+      const response = await gpt_agent.getRedeem();
+      if (response.code === 0) {
+        setRedeems(response.message);
+      } else {
+        console.error("获取失败:", response.message);
+      }
+    } catch (error) {
+      console.error("获取异常:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (!loadedTabs[activeTab]) {
+      switch (activeTab) {
+        case "subAgents":
+          fetchSubAgents();
+          break;
+        case "transactionOut":
+          fetchTransactionOut();
+          break;
+        case "transactionIn":
+          fetchTransactionIn();
+          break;
+        case "Redeem":
+          fetchRedeems();
+          break;
+        default:
+          break;
+      }
+      setLoadedTabs({ ...loadedTabs, [activeTab]: true });
+    }
+  }, [activeTab, loadedTabs]);
 
   return (
     <div
@@ -97,12 +165,27 @@ function MainApp() {
         />
 
         <div className="tab-content">
-          {/* 根据选项卡状态展示内容 */}
           {activeTab === "subAgents" && (
-            <SubAgentsTable subAgents={subAgents} />
+            <SubAgentsTable
+              subAgents={subAgents}
+              refreshData={fetchSubAgents}
+            />
           )}
-          {activeTab === "tab2" && <div>其他选项卡1内容</div>}
-          {activeTab === "tab3" && <div>其他选项卡2内容</div>}
+          {activeTab === "transactionOut" && (
+            <TransactionOut
+              OutRecords={OutRecords}
+              refreshData={fetchTransactionOut}
+            />
+          )}
+          {activeTab === "transactionIn" && (
+            <TransactionIn
+              InRecords={InRecords}
+              refreshData={fetchTransactionIn}
+            />
+          )}
+          {activeTab === "Redeem" && (
+            <Redeems redeems={redeems} refreshData={fetchRedeems} />
+          )}
         </div>
       </div>
 

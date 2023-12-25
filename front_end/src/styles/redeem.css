@@ -1,31 +1,17 @@
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-  table-layout: fixed; /* 固定表格布局 */
-  height: auto;
+.redeem-generate-button {
+  padding: 5px;
+  border-radius: 10px;
+  background-color: aquamarine;
 }
 
-th,
-td {
-  padding: 12px;
-  text-align: center;
-  border-bottom: 1px solid #ddd;
-  height: 50px; /* 每一行的高度限制为50px */
-  overflow: hidden; /* 如果内容超出了高度，隐藏溢出的内容 */
+.refresh-button {
+  background-color: #db90f1;
+  border-radius: 10px;
+  padding: 5px;
+  margin-left: 10px;
 }
 
-th {
-  background-color: #007bff;
-  color: white;
-}
-
-.action-cell {
-  width: 10%; /* 保持宽度设置 */
-  white-space: nowrap; /* 防止内容换行 */
-}
-
-.transaction-button {
+.undo-button {
   padding: 8px 15px;
   background-color: #28a745;
   color: white;
@@ -35,12 +21,12 @@ th {
   transition: background-color 0.3s;
 }
 
-.transaction-button:hover {
+.undo-button:hover {
   background-color: #218838;
 }
 
 /* 弹窗样式 */
-.transaction-create-popup {
+.redeem-create-popup {
   position: fixed;
   left: 50%;
   top: 50%;
@@ -57,11 +43,11 @@ th {
   align-items: stretch; /* 子元素拉伸以填满容器宽度 */
 }
 
-.transaction-create-popup label {
+.redeem-create-popup label {
   margin-bottom: 15px; /* 与输入框的间隔 */
 }
 
-.transaction-create-popup input {
+.redeem-create-popup input {
   padding: 10px;
   margin-bottom: 20px; /* 与按钮的间隔 */
   border: 1px solid #ccc;
@@ -69,12 +55,12 @@ th {
 }
 
 /* 按钮容器 */
-.transaction-button-container {
+.redeem-button-container {
   display: flex;
   justify-content: space-around; /* 按钮之间的间隔 */
 }
 
-.transaction-create-popup button {
+.redeem-create-popup button {
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -82,13 +68,13 @@ th {
   flex-grow: 1; /* 按钮平均占据可用空间 */
 }
 
-.transaction-create-popup button:first-of-type {
+.redeem-create-popup button:first-of-type {
   background-color: #4caf50;
   color: white;
   margin-right: 10px; /* 与取消按钮的间隔 */
 }
 
-.transaction-create-popup button:last-of-type {
+.redeem-create-popup button:last-of-type {
   background-color: #f44336;
   color: white;
   margin-left: 10px; /* 与确定按钮的间隔 */

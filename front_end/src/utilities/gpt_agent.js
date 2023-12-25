@@ -192,7 +192,7 @@ class GptAgent {
     }
   }
 
-  async agentTransaction(toUsername, quantity, transactionType) {
+  async agentTransaction(toUsername, quantity, transactionType = 0) {
     const curUrl = "api/agent/transaction";
     const args = {
       fromUsername: this.username,
@@ -220,7 +220,7 @@ class GptAgent {
   async getTransactionOut() {
     const curUrl = "api/agent/get_trans_b_s";
     const args = {
-      senderName: this.username,
+      sender_name: this.username,
     };
 
     try {
@@ -242,7 +242,7 @@ class GptAgent {
   async getTransactionIn() {
     const curUrl = "api/agent/get_trans_b_r";
     const args = {
-      receiverName: this.username,
+      receiver_name: this.username,
     };
 
     try {
