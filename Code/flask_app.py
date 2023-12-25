@@ -29,7 +29,7 @@ class flask_app:
         self.db_pool = DatabasePool()  # 初始化数据库 GPT的数据库
 
         self.app.register_blueprint(user_actions_routes.init_blueprint(self.db_pool))  # 初始化用户处理路由
-        # self.app.register_blueprint(front_end_routes.init_blueprint())  # 前端
+        self.app.register_blueprint(front_end_routes.init_blueprint())  # 前端
 
     def get_app(self):
         return self.app
