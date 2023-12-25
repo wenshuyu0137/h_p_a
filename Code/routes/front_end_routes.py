@@ -13,8 +13,8 @@ def init_blueprint():
         return send_from_directory(directory=os.path.join(build_folder_path, '..'), path='favicon.ico',
                                    mimetype='image/vnd.microsoft.icon')
 
-    @bp.route('/', defaults={'filename': ''})
-    @bp.route('/<path:filename>')
+    @bp.route('/agent', defaults={'filename': ''})
+    @bp.route('/agent/<path:filename>')
     def serve(filename):
         print(os.path.join(build_folder_path, filename))
         if filename and os.path.exists(os.path.join(build_folder_path, filename)):
