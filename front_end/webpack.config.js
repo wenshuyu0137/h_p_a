@@ -7,7 +7,7 @@ module.exports = {
     // 输出配置
     path: path.join(__dirname, "/build"),
     filename: "bundle.js",
-    publicPath: "/agent/",
+    publicPath: "/",
   },
   module: {
     // 加载器配置
