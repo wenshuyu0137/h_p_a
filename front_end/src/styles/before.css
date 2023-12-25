@@ -57,7 +57,7 @@ form {
   margin-top: 4px;
 }
 
-/* 应用于所有的表单字段，包括输入框和按钮 */
+/* 应用于所有的表单字段,包括输入框和按钮 */
 input[type="text"],
 input[type="password"],
 input[type="email"],
@@ -85,7 +85,7 @@ textarea {
   margin-bottom: 4px;
 }
 
-/* 辅助按钮样式，如注册和忘记密码 */
+/* 辅助按钮样式,如注册和忘记密码 */
 .aux-button {
   padding: 8px 16px;
   font-size: 0.75rem;

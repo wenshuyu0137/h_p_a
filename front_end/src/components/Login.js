@@ -21,7 +21,7 @@ function Login() {
         gpt_agent.set_token_and_username(data["token"], values.username);
         navigate("/app");
       } else {
-        alert("登录失败，请检查您的用户名和密码。");
+        alert("登录失败,请检查您的用户名和密码。");
         setSubmitting(false);
       }
     } catch (error) {

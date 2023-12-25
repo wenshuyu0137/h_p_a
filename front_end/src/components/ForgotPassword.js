@@ -23,7 +23,7 @@ function ForgotPassword() {
     setIsTimerActive(true);
     setTimer(60);
     // 发送验证码的逻辑
-    // 发送验证码的逻辑，包括用户名和邮箱
+    // 发送验证码的逻辑,包括用户名和邮箱
     axios
       .post("https://www.wenshuyu.chat/api/agent/email_code", {
         username,
@@ -34,11 +34,11 @@ function ForgotPassword() {
         // 根据后端返回的code做出相应的处理
         if (code === 0) {
         } else {
-          alert(message || "登录失败，原因未知。");
+          alert(message || "登录失败,原因未知。");
         }
       })
       .catch((error) => {
-        // 如果网络请求出错，设置网络错误消息
+        // 如果网络请求出错,设置网络错误消息
         alert(
           "网络请求错误: " + (error.response?.data?.message || error.message)
         );

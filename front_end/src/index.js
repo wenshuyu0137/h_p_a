@@ -1,11 +1,10 @@
 import React from "react";
-import { createRoot } from "react-dom/client";
+import { createRoot } from "react-dom/client"; // 引入createRoot
 import { AuthProvider } from "./contexts/AuthContext";
-import "./styles/default.css";
 import App from "./App";
 
 const container = document.getElementById("root");
-const root = createRoot(container);
+const root = createRoot(container); // 使用createRoot创建根
 
 root.render(
   <React.StrictMode>

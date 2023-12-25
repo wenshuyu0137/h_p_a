@@ -39,7 +39,7 @@ function Redeems({ redeems, refreshData, gpt_agent }) {
         setAmount(""); // 清空输入框
         refreshData(); // 刷新数据
       } else if (result) {
-        // 交易失败，显示错误消息
+        // 交易失败,显示错误消息
         alert(result.message || "生成失败");
       }
     } catch (error) {
