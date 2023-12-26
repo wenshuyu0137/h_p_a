@@ -2,8 +2,8 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
-  table-layout: fixed; /* 固定表格布局 */
   height: auto;
+  overflow: visible; /* 移除滚动条 */
 }
 
 th,
@@ -11,8 +11,9 @@ td {
   padding: 12px;
   text-align: center;
   border-bottom: 1px solid #ddd;
-  height: 50px; /* 每一行的高度限制为50px */
-  overflow: hidden; /* 如果内容超出了高度,隐藏溢出的内容 */
+  /* 移除高度限制和溢出隐藏 */
+  /* height: 50px; */
+  /* overflow: auto; */
 }
 
 th {

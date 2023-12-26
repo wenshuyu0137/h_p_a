@@ -7,6 +7,9 @@ function TransactionIn({ InRecords, refreshData }) {
     // 解析时间字符串并创建一个 Date 对象
     const timeObj = new Date(timeString);
 
+    // 减去8小时（8小时 * 每小时60分钟 * 每分钟60秒 * 每秒1000毫秒）
+    timeObj.setTime(timeObj.getTime() - 8 * 60 * 60 * 1000);
+
     // 格式化时间为 'YYYY/MM/DD HH:MM:SS' 格式
     return timeObj.toLocaleString("zh-CN", { hour12: false });
   };
