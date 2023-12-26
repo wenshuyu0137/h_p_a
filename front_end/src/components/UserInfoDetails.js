@@ -23,7 +23,7 @@ function UserInfoDetails({
       className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center"
       onClick={(e) => e.stopPropagation()}
     >
-      <div className="bg-white p-4 rounded">
+      <div className="agent-info">
         <h3 className="text-lg font-bold mb-2">用户详情</h3>
         <div className="user-info">
           {userInfo ? (

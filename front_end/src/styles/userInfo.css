@@ -17,8 +17,8 @@
 
 .user-info-close-button {
   position: absolute;
-  top: 1rem; /* 根据需要调整 */
-  right: 1rem; /* 根据需要调整 */
+  top: 0; /* 紧贴容器顶部 */
+  right: 0; /* 紧贴容器右边 */
   background-color: transparent;
   border: none;
   cursor: pointer;

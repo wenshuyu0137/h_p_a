@@ -11,6 +11,13 @@
   width: 12px;
 }
 
+.agent-info{
+  background-color: #eee;
+  padding: 10px;
+  position: relative;
+  overflow: auto;
+}
+
 .toggle-icon {
   z-index: 100; /* 至少要与侧边栏的 z-index 相同 */
   position: relative; /* 或其他定位值 */
