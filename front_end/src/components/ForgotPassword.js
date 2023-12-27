@@ -25,7 +25,7 @@ function ForgotPassword() {
     // 发送验证码的逻辑
     // 发送验证码的逻辑,包括用户名和邮箱
     axios
-      .post("https://www.wenshuyu.chat/api/agent/email_code", {
+      .post("https://www.helloprompt.chat/api/agent/email_code", {
         username,
         email,
       })
@@ -68,7 +68,7 @@ function ForgotPassword() {
     };
 
     axios
-      .post("https://www.wenshuyu.chat/api/agent/change_pwd", postData)
+      .post("https://www.helloprompt.chat/api/agent/change_pwd", postData)
       .then((response) => {
         const { code, message } = response.data;
         if (code === 0) {

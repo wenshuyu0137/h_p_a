@@ -26,7 +26,7 @@ function Register() {
     // 发送验证码的逻辑
     // 发送验证码的逻辑,包括用户名和邮箱
     axios
-      .post("https://www.wenshuyu.chat/api/agent/email_code", {
+      .post("https://www.helloprompt.chat/api/agent/email_code", {
         username,
         email,
       })
@@ -74,7 +74,7 @@ function Register() {
     };
 
     axios
-      .post("https://www.wenshuyu.chat/api/agent/register", postData)
+      .post("https://www.helloprompt.chat/api/agent/register", postData)
       .then((response) => {
         const { code, message } = response.data;
         // 根据后端返回的code做出相应的处理
